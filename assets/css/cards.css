@@ -1,0 +1,179 @@
+/* ============================================
+   Microcontroller Hub — Cards (Sensors, Projects)
+   v1.0.0
+   ============================================ */
+.page-head {
+  padding: 3.5rem 0 2.5rem;
+  background: var(--grad-hero);
+  border-bottom: 1px solid var(--border);
+}
+.page-head h1 {
+  margin-bottom: 0.5rem;
+}
+.page-head p {
+  color: var(--muted);
+  max-width: 720px;
+  font-size: 1.05rem;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  padding: 3rem 0;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  transition: all var(--t);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--esp32), var(--cyan));
+  opacity: 0;
+  transition: opacity var(--t);
+}
+.card:hover {
+  border-color: var(--esp32);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-2);
+}
+.card:hover::before {
+  opacity: 1;
+}
+
+.card-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  background: rgba(0, 230, 118, 0.08);
+  border: 1px solid rgba(0, 230, 118, 0.2);
+  display: grid;
+  place-items: center;
+  color: var(--esp32);
+  margin-bottom: 1rem;
+}
+.card-icon.cyan {
+  background: rgba(34, 211, 238, 0.08);
+  border-color: rgba(34, 211, 238, 0.2);
+  color: var(--cyan);
+}
+
+.card h2 {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  color: var(--text);
+}
+.card > p {
+  color: var(--muted);
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+}
+
+.card-meta {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+.tag {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: 0.75rem;
+  color: var(--muted);
+  font-family: var(--font-mono);
+}
+.tag.green {
+  color: var(--esp32);
+  border-color: rgba(0, 230, 118, 0.3);
+}
+.tag.cyan {
+  color: var(--cyan);
+  border-color: rgba(34, 211, 238, 0.3);
+}
+.tag.amber {
+  color: var(--amber);
+  border-color: rgba(251, 191, 36, 0.3);
+}
+.tag.rose {
+  color: var(--rose);
+  border-color: rgba(244, 63, 94, 0.3);
+}
+
+.card-section {
+  border-top: 1px solid var(--border);
+  padding-top: 1rem;
+  margin-top: 0.5rem;
+}
+.card-section h3 {
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--esp32);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  font-family: var(--font-mono);
+}
+.card-section p,
+.card-section li {
+  font-size: 0.9rem;
+  color: var(--text);
+  line-height: 1.6;
+}
+.card-section ul {
+  padding-left: 1.1rem;
+  margin: 0;
+}
+
+.pin-table {
+  width: 100%;
+  font-size: 0.85rem;
+  margin: 0.5rem 0;
+}
+.pin-table td {
+  padding: 0.35rem 0.6rem;
+  border-bottom: 1px solid var(--border);
+}
+.pin-table td:first-child {
+  color: var(--muted);
+  font-family: var(--font-mono);
+  width: 40%;
+}
+.pin-table td:last-child {
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-weight: 600;
+}
+
+.card-cta {
+  margin-top: auto;
+  padding-top: 1rem;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.btn-sm {
+  padding: 0.5rem 0.9rem;
+  font-size: 0.85rem;
+}
+
+@media (max-width: 480px) {
+  .cards-grid {
+    grid-template-columns: 1fr;
+  }
+}

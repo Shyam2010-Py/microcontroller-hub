@@ -1,0 +1,59 @@
+/* ============================================
+   Microcontroller Hub — Responsive (final pass)
+   v1.0.0
+   ============================================ */
+@media (max-width: 1024px) {
+  .container {
+    padding: 0 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 3rem 0;
+  }
+  h1 {
+    font-size: 2rem;
+  }
+  h2 {
+    font-size: 1.5rem;
+  }
+  .roadmap-step {
+    grid-template-columns: 44px 1fr;
+    gap: 1rem;
+  }
+  .roadmap-dot {
+    width: 36px;
+    height: 36px;
+    font-size: 0.85rem;
+  }
+  .roadmap-content {
+    padding: 1rem 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    padding: 3rem 0 2.5rem;
+  }
+  .hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .hero-actions .btn {
+    justify-content: center;
+  }
+  .page-head,
+  .page-header {
+    padding: 2.5rem 0 1.75rem;
+  }
+  pre {
+    font-size: 0.8rem;
+    padding: 0.85rem 1rem;
+  }
+  th,
+  td {
+    padding: 0.6rem 0.7rem;
+    font-size: 0.85rem;
+  }
+}

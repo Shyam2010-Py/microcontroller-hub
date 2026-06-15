@@ -1,0 +1,327 @@
+/* ============================================
+   Microcontroller Hub — Home (Hero + Roadmap)
+   v1.0.0
+   ============================================ */
+.hero {
+  position: relative;
+  background: var(--grad-hero);
+  padding: 6rem 0 5rem;
+  border-bottom: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.02) 1px,
+      transparent 1px
+    ),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
+  pointer-events: none;
+}
+
+.hero-inner {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+.hero h1 {
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, var(--text) 0%, var(--esp32) 60%, var(--cyan) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.hero-tag {
+  font-size: 1.05rem;
+  color: var(--muted);
+  max-width: 540px;
+  margin-bottom: 1.5rem;
+}
+
+.hero-sub {
+  font-size: 1.1rem;
+  color: var(--text);
+  margin-bottom: 2rem;
+  font-weight: 500;
+  line-height: 1.7;
+}
+.hero-sub .pill {
+  display: inline-block;
+  padding: 0.3rem 0.75rem;
+  margin: 0 0.25rem 0.5rem 0;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-family: var(--font-mono);
+  color: var(--text);
+}
+.hero-sub .pill::before {
+  content: "›";
+  color: var(--esp32);
+  margin-right: 0.4rem;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+/* Hero visual */
+.hero-visual {
+  position: relative;
+  height: 360px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.chip {
+  position: absolute;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  padding: 0.75rem 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--text);
+  box-shadow: var(--shadow-2);
+  animation: float 6s ease-in-out infinite;
+}
+.chip strong {
+  color: var(--esp32);
+  display: block;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
+.chip.c1 {
+  top: 10%;
+  left: 5%;
+  animation-delay: 0s;
+}
+.chip.c2 {
+  top: 45%;
+  right: 5%;
+  border-color: var(--cyan);
+  animation-delay: 1.5s;
+}
+.chip.c2 strong {
+  color: var(--cyan);
+}
+.chip.c3 {
+  bottom: 8%;
+  left: 25%;
+  animation-delay: 3s;
+}
+.chip .dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--esp32);
+  margin-right: 0.5rem;
+  box-shadow: 0 0 8px var(--esp32);
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+
+/* Roadmap */
+.roadmap {
+  background: var(--bg);
+}
+.roadmap-head {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+.roadmap-head h2 {
+  margin-bottom: 0.5rem;
+}
+.roadmap-head p {
+  color: var(--muted);
+  max-width: 540px;
+  margin: 0 auto;
+}
+
+.roadmap-track {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  max-width: 720px;
+  margin: 0 auto;
+  position: relative;
+}
+.roadmap-step {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 1.5rem;
+  align-items: stretch;
+}
+.roadmap-marker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.roadmap-dot {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 2px solid var(--esp32);
+  display: grid;
+  place-items: center;
+  color: var(--esp32);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.95rem;
+  flex-shrink: 0;
+  z-index: 2;
+  box-shadow: 0 0 0 6px var(--bg);
+}
+.roadmap-line {
+  flex: 1;
+  width: 2px;
+  background: linear-gradient(180deg, var(--esp32), var(--cyan));
+  opacity: 0.4;
+  margin: 4px 0;
+}
+.roadmap-step:last-child .roadmap-line {
+  display: none;
+}
+.roadmap-content {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 0.75rem;
+  transition: all var(--t);
+}
+.roadmap-content:hover {
+  border-color: var(--esp32);
+  transform: translateX(4px);
+}
+.roadmap-content h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.35rem;
+  color: var(--text);
+}
+.roadmap-content h3 .badge {
+  font-size: 0.7rem;
+  color: var(--esp32);
+  font-family: var(--font-mono);
+  font-weight: 500;
+  margin-left: 0.5rem;
+}
+.roadmap-content p {
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+/* Features */
+.features {
+  background: var(--bg-2);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.features-head {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.25rem;
+}
+.feature {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  transition: all var(--t);
+}
+.feature:hover {
+  border-color: var(--esp32);
+  transform: translateY(-3px);
+}
+.feature-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: rgba(0, 230, 118, 0.1);
+  border: 1px solid rgba(0, 230, 118, 0.25);
+  display: grid;
+  place-items: center;
+  color: var(--esp32);
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+}
+.feature h3 {
+  font-size: 1.05rem;
+  margin-bottom: 0.4rem;
+}
+.feature p {
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+/* Quick start */
+.cta {
+  text-align: center;
+  padding: 4rem 0;
+}
+.cta h2 {
+  margin-bottom: 0.75rem;
+}
+.cta p {
+  color: var(--muted);
+  max-width: 480px;
+  margin: 0 auto 1.5rem;
+}
+
+@media (max-width: 860px) {
+  .hero-inner {
+    grid-template-columns: 1fr;
+  }
+  .hero-visual {
+    height: 260px;
+  }
+  .hero {
+    padding: 4rem 0 3.5rem;
+  }
+}
+@media (max-width: 480px) {
+  .chip {
+    font-size: 0.75rem;
+    padding: 0.6rem 0.8rem;
+  }
+}
