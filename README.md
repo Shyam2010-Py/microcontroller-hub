@@ -10,6 +10,14 @@
 
 ---
 
+## 🌐 Live Demo
+
+Visit the website:
+
+👉 https://shyam2010-py.github.io/microcontroller-hub/
+
+---
+
 ## ✨ Overview
 
 **Microcontroller Hub** is a static educational website that walks beginners through the full ESP32 journey — from the very first blink to real sensor projects. It combines the clarity of a **documentation site** with the engagement of a **learning platform**, all wrapped in a modern dark theme with ESP32-green accents.
