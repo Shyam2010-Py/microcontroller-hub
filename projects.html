@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Projects — Microcontroller Hub</title>
+<meta name="description" content="Hands-on ESP32 projects: blink LED, temperature monitor, and distance meter." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/css/variables.css" />
+<link rel="stylesheet" href="assets/css/base.css" />
+<link rel="stylesheet" href="assets/css/header.css" />
+<link rel="stylesheet" href="assets/css/cards.css" />
+<link rel="stylesheet" href="assets/css/content.css" />
+<link rel="stylesheet" href="assets/css/responsive.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <nav class="nav">
+      <a href="index.html" class="brand">
+        <span class="brand-logo">µ</span>
+        <span class="brand-text">Microcontroller Hub<small>Learn · Build · Ship</small></span>
+      </a>
+      <button class="nav-toggle" aria-label="Toggle menu"><span></span></button>
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="esp32.html" class="nav-link">ESP32</a></li>
+        <li><a href="sensors.html" class="nav-link">Sensors</a></li>
+        <li><a href="projects.html" class="nav-link active">Projects</a></li>
+        <li><a href="reference.html" class="nav-link">Reference</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<header class="page-head">
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a><span class="sep">/</span><span>Projects</span>
+    </div>
+    <span class="eyebrow">Module 03</span>
+    <h1>Projects</h1>
+    <p>Combine everything you've learned into complete, working projects. Start with the blink, finish with real IoT-style builds.</p>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- Blink LED -->
+  <article class="card" id="blink">
+    <div class="card-icon">💡</div>
+    <h2>Blink LED</h2>
+    <p>The "Hello World" of embedded systems. Blink the on-board LED with a fixed interval.</p>
+    <div class="card-meta">
+      <span class="tag green">Beginner</span>
+      <span class="tag cyan">5 min</span>
+      <span class="tag">No external parts</span>
+    </div>
+
+    <div class="card-section">
+      <h3>Difficulty</h3>
+      <p><span class="tag green">Easy</span> — the first project for every beginner. No wiring, no libraries, no soldering.</p>
+    </div>
+
+    <div class="card-section">
+      <h3>Components Needed</h3>
+      <ul>
+        <li>ESP32 DevKit board (1×)</li>
+        <li>USB cable (1×)</li>
+      </ul>
+    </div>
+
+    <div class="card-section">
+      <h3>Wiring</h3>
+      <p>None. The blue LED is soldered to <code>GPIO 2</code> on the board.</p>
+    </div>
+
+    <div class="card-section">
+      <h3>Code</h3>
+      <div class="code-block">
+        <header><span>blink.ino</span><button class="copy-btn">Copy</button></header>
+<pre><code>#define LED 2
+
+void setup() {
+  pinMode(LED, OUTPUT);
+}
+
+void loop() {
+  digitalWrite(LED, HIGH);
+  delay(1000);
+  digitalWrite(LED, LOW);
+  delay(1000);
+}</code></pre>
+      </div>
+    </div>
+
+    <div class="card-section">
+      <h3>Output</h3>
+      <p>The on-board LED turns ON for 1 second, then OFF for 1 second, repeating forever.</p>
+    </div>
+
+    <div class="card-section">
+      <h3>Applications</h3>
+      <ul>
+        <li>Verifying the board works</li>
+        <li>Learning digital output &amp; timing</li>
+        <li>Heartbeat / status indicators</li>
+      </ul>
+    </div>
+  </article>
+
+  <!-- Temperature Monitor -->
+  <article class="card" id="temp-monitor">
+    <div class="card-icon">🌡️</div>
+    <h2>Temperature Monitor</h2>
+    <p>Read live temperature and humidity from a DHT11 and print it to the Serial Monitor every 2 seconds.</p>
+    <div class="card-meta">
+      <span class="tag amber">Intermediate</span>
+      <span class="tag cyan">15 min</span>
+      <span class="tag">DHT11</span>
+    </div>
+
+    <div class="card-section">
+      <h3>Difficulty</h3>
+      <p><span class="tag amber">Intermediate</span> — introduces a sensor library and reading real-world data.</p>
+    </div>
+
+    <div class="card-section">
+      <h3>Components Needed</h3>
+      <ul>
+        <li>ESP32 DevKit (1×)</li>
+        <li>DHT11 module (1×)</li>
+        <li>10 kΩ resistor (1×)</li>
+        <li>Breadboard &amp; jumper wires</li>
+      </ul>
+    </div>
+
+    <div class="card-section">
+      <h3>Wiring</h3>
+      <table class="pin-table">
+        <tr><td>DHT11 VCC</td><td>ESP32 3.3 V</td></tr>
+        <tr><td>DHT11 DATA</td><td>ESP32 GPIO 4</td></tr>
+        <tr><td>DHT11 GND</td><td>ESP32 GND</td></tr>
+        <tr><td>DATA — 3V3</td><td>10 kΩ pull-up</td></tr>
+      </table>
+    </div>
+
+    <div class="card-section">
+      <h3>Code</h3>
+      <div class="code-block">
+        <header><span>temp_monitor.ino · Adafruit DHT lib required</span><button class="copy-btn">Copy</button></header>
+<pre><code>#include "DHT.h"
+#define DHT_PIN  4
+#define DHT_TYPE DHT11
+DHT dht(DHT_PIN, DHT_TYPE);
+
+void setup() {
+  Serial.begin(115200);
+  dht.begin();
+}
+
+void loop() {
+  float t = dht.readTemperature();
+  float h = dht.readHumidity();
+  if (isnan(t) || isnan(h)) {
+    Serial.println("Read failed");
+    return;
+  }
+  Serial.printf("Temp: %.1f °C   Humidity: %.1f %%\n", t, h);
+  delay(2000);
+}</code></pre>
+      </div>
+    </div>
+
+    <div class="card-section">
+      <h3>Output</h3>
+      <pre style="background: var(--bg-2); padding: 0.75rem 1rem; border-radius: 8px; font-size: 0.85rem; color: var(--cyan);">Temp: 26.0 °C   Humidity: 54.0 %
+Temp: 26.1 °C   Humidity: 53.8 %
+Temp: 26.1 °C   Humidity: 53.7 %</pre>
+    </div>
+
+    <div class="card-section">
+      <h3>Applications</h3>
+      <ul>
+        <li>DIY weather station</li>
+        <li>Server room monitoring</li>
+        <li>Greenhouse automation</li>
+        <li>Smart-fan controller trigger</li>
+      </ul>
+    </div>
+  </article>
+
+  <!-- Distance Meter -->
+  <article class="card" id="distance">
+    <div class="card-icon cyan">📏</div>
+    <h2>Distance Meter</h2>
+    <p>Use an HC-SR04 ultrasonic sensor to measure distance in centimeters and warn when something comes too close.</p>
+    <div class="card-meta">
+      <span class="tag amber">Intermediate</span>
+      <span class="tag cyan">20 min</span>
+      <span class="tag">HC-SR04</span>
+    </div>
+
+    <div class="card-section">
+      <h3>Difficulty</h3>
+      <p><span class="tag amber">Intermediate</span> — adds <code>pulseIn()</code>, voltage-divider wiring, and threshold logic.</p>
+    </div>
+
+    <div class="card-section">
+      <h3>Components Needed</h3>
+      <ul>
+        <li>ESP32 DevKit (1×)</li>
+        <li>HC-SR04 sensor (1×)</li>
+        <li>1 kΩ &amp; 2 kΩ resistors (voltage divider)</li>
+        <li>Breadboard &amp; jumper wires</li>
+        <li>Optional: LED + 220 Ω for visual alert</li>
+      </ul>
+    </div>
+
+    <div class="card-section">
+      <h3>Wiring</h3>
+      <table class="pin-table">
+        <tr><td>HC-SR04 VCC</td><td>ESP32 5 V (VIN)</td></tr>
+        <tr><td>HC-SR04 GND</td><td>ESP32 GND</td></tr>
+        <tr><td>HC-SR04 TRIG</td><td>ESP32 GPIO 5</td></tr>
+        <tr><td>HC-SR04 ECHO</td><td>1 kΩ → GPIO 18 → 2 kΩ → GND</td></tr>
+        <tr><td>LED (+)</td><td>GPIO 2 (built-in)</td></tr>
+      </table>
+    </div>
+
+    <div class="card-section">
+      <h3>Code</h3>
+      <div class="code-block">
+        <header><span>distance_meter.ino</span><button class="copy-btn">Copy</button></header>
+<pre><code>#define TRIG 5
+#define ECHO 18
+#define LED  2
+#define THRESHOLD 20   // cm
+
+long readCm() {
+  digitalWrite(TRIG, LOW);  delayMicroseconds(2);
+  digitalWrite(TRIG, HIGH); delayMicroseconds(10);
+  digitalWrite(TRIG, LOW);
+  return pulseIn(ECHO, HIGH, 30000) / 58;
+}
+
+void setup() {
+  Serial.begin(115200);
+  pinMode(TRIG, OUTPUT);
+  pinMode(ECHO, INPUT);
+  pinMode(LED, OUTPUT);
+}
+
+void loop() {
+  long d = readCm();
+  Serial.print("Distance: "); Serial.print(d); Serial.println(" cm");
+  digitalWrite(LED, (d > 0 && d < THRESHOLD) ? HIGH : LOW);
+  delay(200);
+}</code></pre>
+      </div>
+    </div>
+
+    <div class="card-section">
+      <h3>Output</h3>
+      <pre style="background: var(--bg-2); padding: 0.75rem 1rem; border-radius: 8px; font-size: 0.85rem; color: var(--cyan);">Distance: 84 cm
+Distance: 65 cm
+Distance: 18 cm  ← LED ON (warning)
+Distance: 12 cm  ← LED ON (warning)</pre>
+    </div>
+
+    <div class="card-section">
+      <h3>Applications</h3>
+      <ul>
+        <li>Reverse parking sensor</li>
+        <li>Smart doorbell that triggers on approach</li>
+        <li>Liquid level in a tank</li>
+        <li>Obstacle-avoiding robot</li>
+      </ul>
+    </div>
+  </article>
+
+  <div style="text-align:center; padding: 2rem 0 3rem;">
+    <p class="text-muted" style="margin-bottom:1rem;">Need pinout, I2C, or SPI details while building?</p>
+    <a href="reference.html" class="btn btn-primary">Open Reference →</a>
+  </div>
+
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <p><strong>Microcontroller Hub</strong> · v1.0.0 · Built for ECE students &amp; hobbyists · <span class="text-green">by Shyam</span></p>
+  </div>
+</footer>
+
+<script src="assets/js/nav.js"></script>
+<script src="assets/js/code.js"></script>
+</body>
+</html>

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sensors — Microcontroller Hub</title>
+<meta name="description" content="DHT11, HC-SR04, and IR obstacle sensor — wiring, code, and applications for ESP32." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/css/variables.css" />
+<link rel="stylesheet" href="assets/css/base.css" />
+<link rel="stylesheet" href="assets/css/header.css" />
+<link rel="stylesheet" href="assets/css/cards.css" />
+<link rel="stylesheet" href="assets/css/content.css" />
+<link rel="stylesheet" href="assets/css/responsive.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <nav class="nav">
+      <a href="index.html" class="brand">
+        <span class="brand-logo">µ</span>
+        <span class="brand-text">Microcontroller Hub<small>Learn · Build · Ship</small></span>
+      </a>
+      <button class="nav-toggle" aria-label="Toggle menu"><span></span></button>
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="esp32.html" class="nav-link">ESP32</a></li>
+        <li><a href="sensors.html" class="nav-link active">Sensors</a></li>
+        <li><a href="projects.html" class="nav-link">Projects</a></li>
+        <li><a href="reference.html" class="nav-link">Reference</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<header class="page-head">
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a><span class="sep">/</span><span>Sensors</span>
+    </div>
+    <span class="eyebrow">Module 02</span>
+    <h1>Sensors</h1>
+    <p>Three essential sensors every ESP32 beginner should know. Each card covers theory, wiring, code, and real-world uses.</p>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- DHT11 -->
+  <article class="card" id="dht11">
+    <div class="card-icon">🌡️</div>
+    <h2>DHT11 — Temperature &amp; Humidity</h2>
+    <p>A low-cost digital sensor that measures ambient temperature and relative humidity using a thermistor and a capacitive humidity sensor.</p>
+    <div class="card-meta">
+      <span class="tag green">Digital</span>
+      <span class="tag cyan">3.3 V — 5 V</span>
+      <span class="tag">Single-wire</span>
+    </div>
+
+    <div class="card-section">
+      <h3>Working Principle</h3>
+      <p>The DHT11 uses a <strong>capacitive humidity sensor</strong> and a <strong>thermistor</strong> to measure the surrounding air. It outputs a calibrated digital signal on the data pin using a proprietary single-wire protocol.</p>
+    </div>
+
+    <div class="card-section">
+      <h3>Pin Connections</h3>
+      <table class="pin-table">
+        <tr><td>DHT11 VCC</td><td>ESP32 3.3 V</td></tr>
+        <tr><td>DHT11 DATA</td><td>ESP32 GPIO 4</td></tr>
+        <tr><td>DHT11 GND</td><td>ESP32 GND</td></tr>
+        <tr><td>DATA — 3V3</td><td>10 kΩ pull-up</td></tr>
+      </table>
+    </div>
+
+    <div class="card-section">
+      <h3>ESP32 Wiring</h3>
+      <p>VCC → 3.3 V, GND → GND, DATA → <code>GPIO 4</code> (with a 10 kΩ pull-up resistor to VCC).</p>
+    </div>
+
+    <div class="card-section">
+      <h3>Example Code</h3>
+      <div class="code-block">
+        <header>
+          <span>dht11.ino · uses Adafruit DHT sensor library</span>
+          <button class="copy-btn">Copy</button>
+        </header>
+<pre><code>#include "DHT.h"
+
+#define DHT_PIN  4
+#define DHT_TYPE DHT11
+
+DHT dht(DHT_PIN, DHT_TYPE);
+
+void setup() {
+  Serial.begin(115200);
+  dht.begin();
+}
+
+void loop() {
+  float t = dht.readTemperature();   // °C
+  float h = dht.readHumidity();      // %
+  if (isnan(t) || isnan(h)) {
+    Serial.println("Sensor read failed");
+    return;
+  }
+  Serial.print("Temp: "); Serial.print(t); Serial.print(" °C  ");
+  Serial.print("Humidity: "); Serial.print(h); Serial.println(" %");
+  delay(2000);
+}</code></pre>
+      </div>
+    </div>
+
+    <div class="card-section">
+      <h3>Applications</h3>
+      <ul>
+        <li>Weather stations</li>
+        <li>Greenhouse monitoring</li>
+        <li>Smart HVAC control</li>
+        <li>Indoor air-quality dashboards</li>
+      </ul>
+    </div>
+  </article>
+
+  <!-- HC-SR04 -->
+  <article class="card" id="hcsr04">
+    <div class="card-icon cyan">📏</div>
+    <h2>HC-SR04 — Ultrasonic Distance</h2>
+    <p>Measures distance from 2 cm to 400 cm using ultrasonic sound waves. A staple for obstacle detection and ranging projects.</p>
+    <div class="card-meta">
+      <span class="tag green">Digital</span>
+      <span class="tag cyan">5 V logic</span>
+      <span class="tag">2 — 400 cm</span>
+    </div>
+
+    <div class="card-section">
+      <h3>Working Principle</h3>
+      <p>The sensor emits a <strong>40 kHz ultrasonic pulse</strong> from the trigger pin and waits for its echo. Distance is computed from the round-trip time:</p>
+      <p><code>distance (cm) = echo_time (µs) / 58</code></p>
+      <p>Sound travels ~0.034 cm/µs, so the round trip covers 2 × distance.</p>
+    </div>
+
+    <div class="card-section">
+      <h3>Pin Connections</h3>
+      <table class="pin-table">
+        <tr><td>VCC</td><td>5 V</td></tr>
+        <tr><td>TRIG</td><td>ESP32 GPIO 5</td></tr>
+        <tr><td>ECHO</td><td>ESP32 GPIO 18 <em>(via divider)</em></td></tr>
+        <tr><td>GND</td><td>GND</td></tr>
+      </table>
+    </div>
+
+    <div class="card-section">
+      <h3>ESP32 Wiring</h3>
+      <p>HC-SR04 outputs <strong>5 V</strong> on ECHO. ESP32 GPIOs are 3.3 V tolerant, so use a <strong>voltage divider</strong>: ECHO → 1 kΩ → GPIO 18 → 2 kΩ → GND.</p>
+    </div>
+
+    <div class="card-section">
+      <h3>Example Code</h3>
+      <div class="code-block">
+        <header>
+          <span>hcsr04.ino</span>
+          <button class="copy-btn">Copy</button>
+        </header>
+<pre><code>#define TRIG_PIN 5
+#define ECHO_PIN 18
+
+void setup() {
+  Serial.begin(115200);
+  pinMode(TRIG_PIN, OUTPUT);
+  pinMode(ECHO_PIN, INPUT);
+}
+
+long readDistanceCm() {
+  digitalWrite(TRIG_PIN, LOW);
+  delayMicroseconds(2);
+  digitalWrite(TRIG_PIN, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(TRIG_PIN, LOW);
+  long us = pulseIn(ECHO_PIN, HIGH, 30000);
+  return us / 58;     // cm
+}
+
+void loop() {
+  Serial.print("Distance: ");
+  Serial.print(readDistanceCm());
+  Serial.println(" cm");
+  delay(250);
+}</code></pre>
+      </div>
+    </div>
+
+    <div class="card-section">
+      <h3>Applications</h3>
+      <ul>
+        <li>Robotics obstacle avoidance</li>
+        <li>Parking sensors</li>
+        <li>Liquid level measurement</li>
+        <li>Smart doorbells and proximity alerts</li>
+      </ul>
+    </div>
+  </article>
+
+  <!-- IR Obstacle -->
+  <article class="card" id="ir">
+    <div class="card-icon">👁️</div>
+    <h2>IR Obstacle Sensor</h2>
+    <p>A simple infrared reflection sensor that detects objects within a few centimeters. Perfect for line-followers and counters.</p>
+    <div class="card-meta">
+      <span class="tag green">Digital out</span>
+      <span class="tag cyan">3.3 V — 5 V</span>
+      <span class="tag">2 — 30 cm</span>
+    </div>
+
+    <div class="card-section">
+      <h3>Working Principle</h3>
+      <p>An <strong>IR LED</strong> emits infrared light; a <strong>photodiode</strong> detects the light reflected off nearby objects. The on-board comparator outputs LOW when an object is detected and HIGH otherwise (active-low).</p>
+    </div>
+
+    <div class="card-section">
+      <h3>Pin Connections</h3>
+      <table class="pin-table">
+        <tr><td>VCC</td><td>ESP32 3.3 V</td></tr>
+        <tr><td>GND</td><td>ESP32 GND</td></tr>
+        <tr><td>OUT</td><td>ESP32 GPIO 27</td></tr>
+      </table>
+    </div>
+
+    <div class="card-section">
+      <h3>ESP32 Wiring</h3>
+      <p>Three-wire hookup. Power the module from 3.3 V and read the OUT pin. Most boards have an on-board potentiometer to tune detection range.</p>
+    </div>
+
+    <div class="card-section">
+      <h3>Example Code</h3>
+      <div class="code-block">
+        <header>
+          <span>ir_obstacle.ino</span>
+          <button class="copy-btn">Copy</button>
+        </header>
+<pre><code>#define IR_PIN 27
+
+void setup() {
+  Serial.begin(115200);
+  pinMode(IR_PIN, INPUT);
+}
+
+void loop() {
+  int state = digitalRead(IR_PIN);  // LOW = object detected
+  if (state == LOW) {
+    Serial.println("Object detected");
+  } else {
+    Serial.println("Clear");
+  }
+  delay(150);
+}</code></pre>
+      </div>
+    </div>
+
+    <div class="card-section">
+      <h3>Applications</h3>
+      <ul>
+        <li>Line-follower robots</li>
+        <li>Object counters / tachometers</li>
+        <li>Security and trip-wire alarms</li>
+        <li>Automatic hand-sanitizer dispensers</li>
+      </ul>
+    </div>
+  </article>
+
+  <div style="text-align:center; padding: 2rem 0 3rem;">
+    <p class="text-muted" style="margin-bottom:1rem;">Ready to combine sensors into full projects?</p>
+    <a href="projects.html" class="btn btn-primary">View Projects →</a>
+  </div>
+
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <p><strong>Microcontroller Hub</strong> · v1.0.0 · Built for ECE students &amp; hobbyists · <span class="text-green">by Shyam</span></p>
+  </div>
+</footer>
+
+<script src="assets/js/nav.js"></script>
+<script src="assets/js/code.js"></script>
+</body>
+</html>

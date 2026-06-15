@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Microcontroller Hub — Learn ESP32, Sensors & IoT Projects</title>
+<meta name="description" content="A structured learning hub for ESP32, sensors, components, and embedded projects. Built for ECE students and hobbyists." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/css/variables.css" />
+<link rel="stylesheet" href="assets/css/base.css" />
+<link rel="stylesheet" href="assets/css/header.css" />
+<link rel="stylesheet" href="assets/css/home.css" />
+<link rel="stylesheet" href="assets/css/responsive.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <nav class="nav">
+      <a href="index.html" class="brand">
+        <span class="brand-logo">µ</span>
+        <span class="brand-text">
+          Microcontroller Hub
+          <small>Learn · Build · Ship</small>
+        </span>
+      </a>
+      <button class="nav-toggle" aria-label="Toggle menu"><span></span></button>
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link active">Home</a></li>
+        <li><a href="esp32.html" class="nav-link">ESP32</a></li>
+        <li><a href="sensors.html" class="nav-link">Sensors</a></li>
+        <li><a href="projects.html" class="nav-link">Projects</a></li>
+        <li><a href="reference.html" class="nav-link">Reference</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-inner">
+      <div>
+        <span class="eyebrow">Embedded Systems · IoT · Learning</span>
+        <h1>Microcontroller Hub</h1>
+        <p class="hero-tag">
+          A structured, beginner-friendly learning platform for ESP32, sensors, and embedded projects.
+        </p>
+        <div class="hero-sub">
+          <span class="pill"><span class="dot"></span>Learn ESP32</span>
+          <span class="pill"><span class="dot"></span>Connect Sensors</span>
+          <span class="pill"><span class="dot"></span>Build Projects</span>
+        </div>
+        <div class="hero-actions">
+          <a href="esp32.html" class="btn btn-primary">Start Learning →</a>
+          <a href="sensors.html" class="btn btn-secondary">Explore Sensors</a>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <div class="chip c1">
+          <strong>GPIO 2</strong>
+          <span class="dot"></span>LED ON
+        </div>
+        <div class="chip c2">
+          <strong>DHT11</strong>
+          <span class="dot" style="background: var(--cyan); box-shadow: 0 0 8px var(--cyan);"></span>24.5°C
+        </div>
+        <div class="chip c3">
+          <strong>Wi-Fi</strong>
+          <span class="dot" style="background: var(--amber); box-shadow: 0 0 8px var(--amber);"></span>192.168.1.42
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ROADMAP -->
+<section class="roadmap section">
+  <div class="container">
+    <div class="roadmap-head">
+      <span class="eyebrow">Learning Path</span>
+      <h2>From Blink to IoT</h2>
+      <p>A clear, progressive path that takes you from the very basics to building real projects.</p>
+    </div>
+
+    <div class="roadmap-track">
+      <div class="roadmap-step">
+        <div class="roadmap-marker">
+          <div class="roadmap-dot">01</div>
+          <div class="roadmap-line"></div>
+        </div>
+        <div class="roadmap-content">
+          <h3>ESP32 Basics <span class="badge">/ start here</span></h3>
+          <p>Understand the microcontroller, its features, and the Arduino IDE setup.</p>
+        </div>
+      </div>
+
+      <div class="roadmap-step">
+        <div class="roadmap-marker">
+          <div class="roadmap-dot">02</div>
+          <div class="roadmap-line"></div>
+        </div>
+        <div class="roadmap-content">
+          <h3>Blink LED <span class="badge">/ first program</span></h3>
+          <p>Write and upload your very first program. Learn <code>digitalWrite()</code> and timing.</p>
+        </div>
+      </div>
+
+      <div class="roadmap-step">
+        <div class="roadmap-marker">
+          <div class="roadmap-dot">03</div>
+          <div class="roadmap-line"></div>
+        </div>
+        <div class="roadmap-content">
+          <h3>Sensors <span class="badge">/ read the world</span></h3>
+          <p>Connect DHT11, HC-SR04, and IR sensors. Read temperature, distance, and obstacles.</p>
+        </div>
+      </div>
+
+      <div class="roadmap-step">
+        <div class="roadmap-marker">
+          <div class="roadmap-dot">04</div>
+          <div class="roadmap-line"></div>
+        </div>
+        <div class="roadmap-content">
+          <h3>Components <span class="badge">/ expand your kit</span></h3>
+          <p>Work with buttons, buzzers, displays, and relays to build more capable circuits.</p>
+        </div>
+      </div>
+
+      <div class="roadmap-step">
+        <div class="roadmap-marker">
+          <div class="roadmap-dot">05</div>
+        </div>
+        <div class="roadmap-content">
+          <h3>Projects <span class="badge">/ build real things</span></h3>
+          <p>Combine everything into complete projects: weather stations, distance meters, and more.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features section">
+  <div class="container">
+    <div class="features-head">
+      <span class="eyebrow">Why this hub</span>
+      <h2>Built for Hands-On Learning</h2>
+      <p class="text-muted">Everything you need to go from zero to your first IoT project.</p>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature">
+        <div class="feature-icon">⚡</div>
+        <h3>Beginner Friendly</h3>
+        <p>Clear explanations, copy-paste examples, and no assumed prior knowledge.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🔌</div>
+        <h3>Real Wiring</h3>
+        <p>Every sensor and project includes pin connections and ESP32 wiring diagrams.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">💻</div>
+        <h3>Working Code</h3>
+        <p>Tested Arduino sketches ready to flash onto your ESP32 board.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">📚</div>
+        <h3>Structured Path</h3>
+        <p>Follow a learning roadmap instead of jumping between random tutorials.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">📱</div>
+        <h3>Mobile Ready</h3>
+        <p>Read and code on the go. The site works perfectly on phones and tablets.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🌐</div>
+        <h3>IoT Focused</h3>
+        <p>Wi-Fi, Bluetooth, and connected projects are part of the journey.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <div class="container">
+    <h2>Ready to blink your first LED?</h2>
+    <p>Start with the ESP32 basics, set up your board, and write your first program in minutes.</p>
+    <a href="esp32.html" class="btn btn-primary">Open ESP32 Module →</a>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <p><strong>Microcontroller Hub</strong> · v1.0.0 · Built for ECE students &amp; hobbyists · <span class="text-green">by Shyam</span></p>
+  </div>
+</footer>
+
+<script src="assets/js/nav.js"></script>
+<script src="assets/js/home.js"></script>
+</body>
+</html>

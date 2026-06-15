@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Reference — Microcontroller Hub</title>
+<meta name="description" content="ESP32 quick reference: GPIO, PWM, ADC, I2C, SPI, UART pins and usage." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/css/variables.css" />
+<link rel="stylesheet" href="assets/css/base.css" />
+<link rel="stylesheet" href="assets/css/header.css" />
+<link rel="stylesheet" href="assets/css/content.css" />
+<link rel="stylesheet" href="assets/css/responsive.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <nav class="nav">
+      <a href="index.html" class="brand">
+        <span class="brand-logo">µ</span>
+        <span class="brand-text">Microcontroller Hub<small>Learn · Build · Ship</small></span>
+      </a>
+      <button class="nav-toggle" aria-label="Toggle menu"><span></span></button>
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="esp32.html" class="nav-link">ESP32</a></li>
+        <li><a href="sensors.html" class="nav-link">Sensors</a></li>
+        <li><a href="projects.html" class="nav-link">Projects</a></li>
+        <li><a href="reference.html" class="nav-link active">Reference</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<header class="page-header">
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a><span class="sep">/</span><span>Reference</span>
+    </div>
+    <span class="eyebrow">Quick Reference</span>
+    <h1>ESP32 Pin &amp; Protocol Reference</h1>
+    <p>Bookmark this page. Every pin, bus, and protocol you'll need while wiring ESP32 projects.</p>
+  </div>
+</header>
+
+<main class="container">
+  <div class="docs">
+    <aside class="docs-toc">
+      <h4>Reference</h4>
+      <ul>
+        <li><a href="#gpio">GPIO Pins</a></li>
+        <li><a href="#pwm">PWM Pins</a></li>
+        <li><a href="#adc">ADC Pins</a></li>
+        <li><a href="#i2c">I2C</a></li>
+        <li><a href="#spi">SPI</a></li>
+        <li><a href="#uart">UART</a></li>
+      </ul>
+    </aside>
+
+    <article class="docs-body">
+
+      <section id="gpio">
+        <h2>GPIO Pins</h2>
+        <p>The ESP32 DevKit v1 exposes 34 GPIO pins. Some have restrictions during boot — avoid them in your circuits.</p>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>GPIO</th><th>Safe?</th><th>Notes</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><code>GPIO 2</code></td><td>✓</td><td>On-board LED, ADC2_CH2</td></tr>
+              <tr><td><code>GPIO 4</code></td><td>✓</td><td>ADC2_CH0, touch T0</td></tr>
+              <tr><td><code>GPIO 5</code></td><td>✓</td><td>PWM, strapping pin (avoid at boot)</td></tr>
+              <tr><td><code>GPIO 6 — 11</code></td><td>✗</td><td>Connected to internal flash — <strong>never use</strong></td></tr>
+              <tr><td><code>GPIO 12</code></td><td>⚠</td><td>Strapping pin — don't pull HIGH at boot</td></tr>
+              <tr><td><code>GPIO 15</code></td><td>⚠</td><td>Strapping pin — don't pull LOW at boot</td></tr>
+              <tr><td><code>GPIO 21</code></td><td>✓</td><td>I2C SDA (default)</td></tr>
+              <tr><td><code>GPIO 22</code></td><td>✓</td><td>I2C SCL (default)</td></tr>
+              <tr><td><code>GPIO 25</code></td><td>✓</td><td>DAC1, ADC2_CH8</td></tr>
+              <tr><td><code>GPIO 26</code></td><td>✓</td><td>DAC2, ADC2_CH9</td></tr>
+              <tr><td><code>GPIO 27</code></td><td>✓</td><td>ADC2_CH7</td></tr>
+              <tr><td><code>GPIO 32, 33</code></td><td>✓</td><td>ADC1_CH4 / CH5 (input-only on some boards)</td></tr>
+              <tr><td><code>GPIO 34, 35, 36, 39</code></td><td>✓</td><td>Input-only — no internal pull-up</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="pwm">
+        <h2>PWM Pins</h2>
+        <p>ESP32 has <strong>16 PWM channels</strong>. Almost every GPIO supports PWM via the LEDC peripheral.</p>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>GPIO</th><th>Channel suggestion</th><th>Common use</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><code>GPIO 2</code></td><td>LEDC_CH0</td><td>LED brightness</td></tr>
+              <tr><td><code>GPIO 4</code></td><td>LEDC_CH1</td><td>Buzzer / tone</td></tr>
+              <tr><td><code>GPIO 5</code></td><td>LEDC_CH2</td><td>Servo motor</td></tr>
+              <tr><td><code>GPIO 18</code></td><td>LEDC_CH3</td><td>RGB LED red</td></tr>
+              <tr><td><code>GPIO 19</code></td><td>LEDC_CH4</td><td>RGB LED green</td></tr>
+              <tr><td><code>GPIO 25</code></td><td>LEDC_CH5</td><td>RGB LED blue</td></tr>
+              <tr><td><code>GPIO 26</code></td><td>LEDC_CH6</td><td>Motor speed (via driver)</td></tr>
+              <tr><td><code>GPIO 27</code></td><td>LEDC_CH7</td><td>Fan speed</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout">
+          <div>
+            <strong>Quick tip</strong>
+            Default PWM frequency is 5000 Hz with 8-bit resolution. Use <code>ledcWrite(pin, duty)</code> to set duty 0–255.
+          </div>
+        </div>
+      </section>
+
+      <section id="adc">
+        <h2>ADC Pins</h2>
+        <p>Two 12-bit SAR ADCs (ADC1 &amp; ADC2) deliver 0–4095 for 0–3.3 V. ADC2 is busy when Wi-Fi is active — prefer ADC1 when reading sensors.</p>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Pin</th><th>Channel</th><th>ADC</th><th>Range</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><code>GPIO 36</code></td><td>ADC1_CH0</td><td>ADC1</td><td>0–3.3 V</td></tr>
+              <tr><td><code>GPIO 37</code></td><td>ADC1_CH1</td><td>ADC1</td><td>0–3.3 V</td></tr>
+              <tr><td><code>GPIO 38</code></td><td>ADC1_CH2</td><td>ADC1</td><td>0–3.3 V</td></tr>
+              <tr><td><code>GPIO 39</code></td><td>ADC1_CH3</td><td>ADC1</td><td>0–3.3 V</td></tr>
+              <tr><td><code>GPIO 32</code></td><td>ADC1_CH4</td><td>ADC1</td><td>0–3.3 V</td></tr>
+              <tr><td><code>GPIO 33</code></td><td>ADC1_CH5</td><td>ADC1</td><td>0–3.3 V</td></tr>
+              <tr><td><code>GPIO 34</code></td><td>ADC1_CH6</td><td>ADC1</td><td>0–3.3 V (input-only)</td></tr>
+              <tr><td><code>GPIO 35</code></td><td>ADC1_CH7</td><td>ADC1</td><td>0–3.3 V (input-only)</td></tr>
+              <tr><td><code>GPIO 4</code></td><td>ADC2_CH0</td><td>ADC2</td><td>Wi-Fi busy</td></tr>
+              <tr><td><code>GPIO 25</code></td><td>ADC2_CH8</td><td>ADC2</td><td>Wi-Fi busy</td></tr>
+              <tr><td><code>GPIO 26</code></td><td>ADC2_CH9</td><td>ADC2</td><td>Wi-Fi busy</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="i2c">
+        <h2>I2C</h2>
+        <p>Two-wire bus: <strong>SDA</strong> (data) and <strong>SCL</strong> (clock). Default pins work for most displays and sensors (OLED, MPU6050, BME280…).</p>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Signal</th><th>Default pin</th><th>Notes</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>SDA</td><td><code>GPIO 21</code></td><td>Use 4.7 kΩ pull-up to 3.3 V</td></tr>
+              <tr><td>SCL</td><td><code>GPIO 22</code></td><td>Use 4.7 kΩ pull-up to 3.3 V</td></tr>
+              <tr><td>Speed</td><td>100 / 400 kHz</td><td>Standard / Fast mode</td></tr>
+              <tr><td>Devices</td><td>Up to 127</td><td>Each must have a unique 7-bit address</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="code-block">
+          <header><span>i2c_scan.ino</span><button class="copy-btn">Copy</button></header>
+<pre><code>#include &lt;Wire.h&gt;
+void setup() {
+  Serial.begin(115200);
+  Wire.begin(21, 22);
+  for (byte addr = 1; addr < 127; addr++) {
+    Wire.beginTransmission(addr);
+    if (Wire.endTransmission() == 0) {
+      Serial.printf("Found device at 0x%02X\n", addr);
+    }
+  }
+}
+void loop() {}</code></pre>
+        </div>
+      </section>
+
+      <section id="spi">
+        <h2>SPI</h2>
+        <p>High-speed 4-wire bus: <strong>MOSI</strong>, <strong>MISO</strong>, <strong>SCK</strong>, <strong>CS</strong>. Default pins are safe for SD cards, RC522 RFID, and TFT displays.</p>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Signal</th><th>Default pin (VSPI)</th><th>Direction</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>MOSI</td><td><code>GPIO 23</code></td><td>Master → Slave</td></tr>
+              <tr><td>MISO</td><td><code>GPIO 19</code></td><td>Slave → Master</td></tr>
+              <tr><td>SCK</td><td><code>GPIO 18</code></td><td>Clock</td></tr>
+              <tr><td>CS / SS</td><td><code>GPIO 5</code></td><td>Chip select (active LOW)</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout info">
+          <div>
+            <strong>HSPI alternative</strong>
+            HSPI uses <code>MOSI 13</code>, <code>MISO 12</code>, <code>SCK 14</code>, <code>CS 15</code>. Use it when you need two SPI devices that conflict on VSPI pins.
+          </div>
+        </div>
+      </section>
+
+      <section id="uart">
+        <h2>UART</h2>
+        <p>Asynchronous serial communication: <strong>TX</strong> and <strong>RX</strong>. ESP32 has three UARTs.</p>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>UART</th><th>TX</th><th>RX</th><th>Common use</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>UART0</td><td><code>GPIO 1</code></td><td><code>GPIO 3</code></td><td>Serial Monitor / USB</td></tr>
+              <tr><td>UART1</td><td><code>GPIO 10</code></td><td><code>GPIO 9</code></td><td>GPS, external modules</td></tr>
+              <tr><td>UART2</td><td><code>GPIO 17</code></td><td><code>GPIO 16</code></td><td>Bluetooth configuration</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="code-block">
+          <header><span>uart2.ino · second serial port</span><button class="copy-btn">Copy</button></header>
+<pre><code>HardwareSerial MySerial(2);
+
+void setup() {
+  Serial.begin(115200);
+  MySerial.begin(9600, SERIAL_8N1, 16, 17); // RX, TX
+}
+
+void loop() {
+  if (MySerial.available()) {
+    Serial.write(MySerial.read());
+  }
+}</code></pre>
+        </div>
+      </section>
+
+    </article>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <p><strong>Microcontroller Hub</strong> · v1.0.0 · Built for ECE students &amp; hobbyists · <span class="text-green">by Shyam</span></p>
+  </div>
+</footer>
+
+<script src="assets/js/nav.js"></script>
+<script src="assets/js/code.js"></script>
+</body>
+</html>

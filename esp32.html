@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ESP32 — Microcontroller Hub</title>
+<meta name="description" content="Learn ESP32: features, pinout, applications, and your first blink program." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/css/variables.css" />
+<link rel="stylesheet" href="assets/css/base.css" />
+<link rel="stylesheet" href="assets/css/header.css" />
+<link rel="stylesheet" href="assets/css/content.css" />
+<link rel="stylesheet" href="assets/css/responsive.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <nav class="nav">
+      <a href="index.html" class="brand">
+        <span class="brand-logo">µ</span>
+        <span class="brand-text">Microcontroller Hub<small>Learn · Build · Ship</small></span>
+      </a>
+      <button class="nav-toggle" aria-label="Toggle menu"><span></span></button>
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="esp32.html" class="nav-link active">ESP32</a></li>
+        <li><a href="sensors.html" class="nav-link">Sensors</a></li>
+        <li><a href="projects.html" class="nav-link">Projects</a></li>
+        <li><a href="reference.html" class="nav-link">Reference</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<header class="page-header">
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a><span class="sep">/</span><span>ESP32</span>
+    </div>
+    <span class="eyebrow">Module 01</span>
+    <h1>ESP32 — The Brain of Your Projects</h1>
+    <p>A dual-core microcontroller with built-in Wi-Fi and Bluetooth. Cheap, powerful, and perfect for beginners and IoT.</p>
+  </div>
+</header>
+
+<main class="container">
+  <div class="docs">
+    <aside class="docs-toc">
+      <h4>On this page</h4>
+      <ul>
+        <li><a href="#what">What is ESP32?</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#applications">Applications</a></li>
+        <li><a href="#why">Why use ESP32?</a></li>
+        <li><a href="#pinout">Pinout</a></li>
+        <li><a href="#first">First Program</a></li>
+        <li><a href="#blink">Blink LED</a></li>
+      </ul>
+    </aside>
+
+    <article class="docs-body">
+
+      <section id="what">
+        <h2>What is ESP32?</h2>
+        <p>The <strong>ESP32</strong> is a low-cost, low-power system-on-chip (SoC) microcontroller developed by <strong>Espressif Systems</strong>. It comes with built-in <strong>Wi-Fi</strong> and <strong>Bluetooth</strong>, making it ideal for Internet of Things (IoT) projects, embedded systems, and rapid prototyping.</p>
+        <p>It is the successor to the popular ESP8266 and adds more power, more GPIOs, Bluetooth, and hardware encryption.</p>
+
+        <div class="callout">
+          <div>
+            <strong>At a glance</strong>
+            ESP32 = Arduino-level simplicity + Wi-Fi + Bluetooth + dual-core processing.
+          </div>
+        </div>
+      </section>
+
+      <section id="features">
+        <h2>Features</h2>
+        <ul>
+          <li><strong>Dual-core</strong> Xtensa LX6 processor, up to 240 MHz</li>
+          <li><strong>Wi-Fi</strong> 802.11 b/g/n (2.4 GHz)</li>
+          <li><strong>Bluetooth</strong> 4.2 (Classic + BLE)</li>
+          <li><strong>520 KB</strong> SRAM, supports external flash/PSRAM</li>
+          <li><strong>34</strong> programmable GPIO pins</li>
+          <li><strong>12-bit ADC</strong>, 8-channel</li>
+          <li><strong>Touch sensors</strong>, Hall sensor, temperature sensor</li>
+          <li><strong>SPI</strong>, <strong>I2C</strong>, <strong>UART</strong>, <strong>I2S</strong>, CAN</li>
+          <li><strong>PWM</strong> on almost every GPIO</li>
+          <li>Operating voltage: <strong>3.3 V</strong></li>
+        </ul>
+      </section>
+
+      <section id="applications">
+        <h2>Applications</h2>
+        <ul>
+          <li>IoT devices and smart home automation</li>
+          <li>Wireless sensor networks</li>
+          <li>Wearable electronics</li>
+          <li>Robotics and motor control</li>
+          <li>Data logging and environmental monitoring</li>
+          <li>BLE beacons, smart locks, asset trackers</li>
+          <li>Wi-Fi controlled relays, lights, and appliances</li>
+        </ul>
+      </section>
+
+      <section id="why">
+        <h2>Why use ESP32?</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Reason</th><th>Why it matters</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Built-in Wi-Fi &amp; BLE</td><td>No extra modules needed</td></tr>
+              <tr><td>Affordable</td><td>Boards start at ~$3–5</td></tr>
+              <tr><td>Arduino support</td><td>Use the same IDE as Arduino</td></tr>
+              <tr><td>Huge community</td><td>Tons of libraries &amp; tutorials</td></tr>
+              <tr><td>Low power modes</td><td>Great for battery projects</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="pinout">
+        <h2>ESP32 Pinout (DevKit v1)</h2>
+        <p>The most common board is the <strong>ESP32 DevKit v1 (30-pin)</strong>. Below is a quick reference of commonly used pins.</p>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Pin</th><th>Function</th><th>Notes</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><code>GPIO 2</code></td><td>Built-in LED</td><td>On-board, active high</td></tr>
+              <tr><td><code>GPIO 4</code></td><td>General I/O, ADC2_CH0</td><td>Safe to use</td></tr>
+              <tr><td><code>GPIO 5</code></td><td>General I/O, PWM</td><td>Safe to use</td></tr>
+              <tr><td><code>GPIO 18</code></td><td>SPI SCK, PWM</td><td>Safe to use</td></tr>
+              <tr><td><code>GPIO 19</code></td><td>SPI MISO</td><td>Safe to use</td></tr>
+              <tr><td><code>GPIO 21</code></td><td>I2C SDA</td><td>Default I2C data</td></tr>
+              <tr><td><code>GPIO 22</code></td><td>I2C SCL</td><td>Default I2C clock</td></tr>
+              <tr><td><code>GPIO 25</code></td><td>DAC1, ADC2_CH8</td><td>Safe to use</td></tr>
+              <tr><td><code>GPIO 26</code></td><td>DAC2, ADC2_CH9</td><td>Safe to use</td></tr>
+              <tr><td><code>GPIO 27</code></td><td>ADC2_CH7</td><td>Safe to use</td></tr>
+              <tr><td><code>3V3</code></td><td>3.3 V output</td><td>Powers small sensors</td></tr>
+              <tr><td><code>GND</code></td><td>Ground</td><td>Common ground</td></tr>
+              <tr><td><code>VIN</code></td><td>5 V input</td><td>USB or external 5 V</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout warn">
+          <div>
+            <strong>⚠ Avoid these pins on boot</strong>
+            <code>GPIO 6</code>, <code>GPIO 7</code>, <code>GPIO 8</code>, <code>GPIO 9</code>, <code>GPIO 10</code>, <code>GPIO 11</code> are connected to internal flash. <strong>Do not use them.</strong>
+          </div>
+        </div>
+      </section>
+
+      <section id="first">
+        <h2>Your First Program</h2>
+        <p>Before uploading, install the ESP32 board package in the Arduino IDE:</p>
+        <ol>
+          <li>Open <strong>Arduino IDE</strong> → <strong>File</strong> → <strong>Preferences</strong></li>
+          <li>Paste this URL into <em>Additional Board URLs</em>:<br />
+            <code>https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json</code>
+          </li>
+          <li>Go to <strong>Tools → Board → Board Manager</strong> → search <em>esp32</em> → install</li>
+          <li>Select <strong>ESP32 Dev Module</strong> as your board</li>
+          <li>Pick the correct <strong>Port</strong>, then click <strong>Upload</strong></li>
+        </ol>
+      </section>
+
+      <section id="blink">
+        <h2>Blink LED</h2>
+        <p>The classic first program. The on-board LED on GPIO 2 blinks once per second.</p>
+
+        <div class="code-block">
+          <header>
+            <span>blink.ino</span>
+            <button class="copy-btn">Copy</button>
+          </header>
+<pre><code>// ESP32 Blink — on-board LED on GPIO 2
+#define LED_PIN 2
+
+void setup() {
+  pinMode(LED_PIN, OUTPUT);
+}
+
+void loop() {
+  digitalWrite(LED_PIN, HIGH); // ON
+  delay(1000);
+  digitalWrite(LED_PIN, LOW);  // OFF
+  delay(1000);
+}</code></pre>
+        </div>
+
+        <h3>What you learned</h3>
+        <ul>
+          <li><code>pinMode()</code> sets a pin as input or output</li>
+          <li><code>digitalWrite()</code> drives the pin HIGH or LOW</li>
+          <li><code>delay()</code> pauses the program in milliseconds</li>
+          <li><code>setup()</code> runs once, <code>loop()</code> runs forever</li>
+        </ul>
+
+        <div class="callout info">
+          <div>
+            <strong>Next step</strong>
+            Head to the <a href="sensors.html">Sensors module</a> and read real-world data with DHT11, HC-SR04, and IR sensors.
+          </div>
+        </div>
+      </section>
+
+    </article>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <p><strong>Microcontroller Hub</strong> · v1.0.0 · Built for ECE students &amp; hobbyists · <span class="text-green">by Shyam</span></p>
+  </div>
+</footer>
+
+<script src="assets/js/nav.js"></script>
+<script src="assets/js/code.js"></script>
+</body>
+</html>
