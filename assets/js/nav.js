@@ -5,26 +5,31 @@
 (function () {
   const toggle = document.querySelector(".nav-toggle");
   const links = document.querySelector(".nav-links");
-  if (!toggle || !links) return;
-
-  toggle.addEventListener("click", () => {
-    toggle.classList.toggle("open");
-    links.classList.toggle("open");
-  });
-
-  // Close on link click (mobile)
-  links.querySelectorAll("a").forEach((a) => {
-    a.addEventListener("click", () => {
-      toggle.classList.remove("open");
-      links.classList.remove("open");
+  if (toggle && links) {
+    toggle.addEventListener("click", () => {
+      toggle.classList.toggle("open");
+      links.classList.toggle("open");
     });
-  });
+    links.querySelectorAll("a").forEach((a) => {
+      a.addEventListener("click", () => {
+        toggle.classList.remove("open");
+        links.classList.remove("open");
+      });
+    });
+    document.addEventListener("click", (e) => {
+      if (!e.target.closest(".site-header")) {
+        toggle.classList.remove("open");
+        links.classList.remove("open");
+      }
+    });
+  }
 
-  // Close on outside click
-  document.addEventListener("click", (e) => {
-    if (!e.target.closest(".site-header")) {
-      toggle.classList.remove("open");
-      links.classList.remove("open");
-    }
-  });
+  // Load the isolated LearningHub tracker on every page without changing page-specific code.
+  if (!document.querySelector('script[data-learninghub-activity]')) {
+    const script = document.createElement('script');
+    script.src = 'assets/js/learning-activity.js';
+    script.async = true;
+    script.dataset.learninghubActivity = 'true';
+    document.head.appendChild(script);
+  }
 })();
