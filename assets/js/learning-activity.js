@@ -33,8 +33,7 @@
     if(!button)return;
 
     if(page==='esp32.html'){
-      milestoneOnce('esp32-basics',{action:'copy-first-program'});
-      milestoneOnce('blink-led',{action:'copy-first-program'});
+      milestoneOnce('blink-led',{action:'copy-blink-program'});
     }else if(page==='sensors.html'){
       milestoneOnce('sensors',{action:'copy-sensor-example'});
     }else if(page==='reference.html'){
