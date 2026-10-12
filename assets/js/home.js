@@ -1,7 +1,4 @@
-/* ============================================
-   Microcontroller Hub — Roadmap reveal
-   v1.0.0
-   ============================================ */
+
 (function () {
   const steps = document.querySelectorAll(".roadmap-step");
   if (!steps.length) return;
